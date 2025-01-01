@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public CharacterMovement controller;
+    public CharacterMove controller;
     public Animator animator;
 
     public float runSpeed = 40.0f;                          //이동 속도 값 설정                 
     float horizontalMove = 0f;
     bool jump = false;
-    //bool dash = false;
+    bool dash = false;
     bool shield = false;
     bool shieldCoolTime = true;
 
@@ -27,10 +27,10 @@ public class PlayerMove : MonoBehaviour
             jump = true;
         }
 
-        //if (Input.GetKeyDown(KeyCode.LeftShift))
-        //{
-        //    dash = true;
-        //}
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            dash = true;
+        }
 
         if (Input.GetKeyDown(KeyCode.D ) && shieldCoolTime)
         {
@@ -74,8 +74,9 @@ public class PlayerMove : MonoBehaviour
     void FixedUpdate()
     {
         //캐릭터 움직임 구현할 함수 
-        controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash);
+        controller.Move(horizontalMove * Time.fixedDeltaTime, jump, dash, shield);
         jump = false;
-        //dash = false;
+        dash = false;
+        shield = false;
     }
 }
